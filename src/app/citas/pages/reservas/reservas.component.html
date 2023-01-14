@@ -1,0 +1,43 @@
+<form class="form-container">
+    <mat-form-field color="warn">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput [(ngModel)]="nombre" name="nombre" required>
+    </mat-form-field>
+    <mat-form-field color="warn">
+        <mat-label>Edad</mat-label>
+        <input matInput [(ngModel)]="edad" name="edad" type="number" min="18" required>
+    </mat-form-field>
+    <mat-form-field color="warn">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput [(ngModel)]="email" name="email" required>
+    </mat-form-field>
+    <mat-form-field color="warn">
+        <mat-label>Fecha de la cita</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="fecha" [min]="minDate" [max]="maxDate" name="fecha" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="fecha.hasError('rangoInvalido')">La fecha y hora seleccionadas no esta dentro del rango permitido</mat-error>
+    </mat-form-field>
+    <mat-form-field color="warn">
+        <mat-label>Hora de la cita</mat-label>
+        <mat-select [(ngModel)]="hora" name="hora">
+            <mat-option *ngFor="let hour of horas" [value]="hour">
+                {{hour}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field color="warn">
+        <mat-label>Nombre de la persona invitada</mat-label>
+        <input matInput [(ngModel)]="invitadoNombre" name="invitadoNombre" required>
+    </mat-form-field>
+    <mat-form-field color="warn">
+        <mat-label>Correo de la persona invitada</mat-label>
+        <input matInput [(ngModel)]="invitadoCorreo" name="invitadoCorreo" required>
+    </mat-form-field>
+    <div class="form-button-container">
+        <button mat-raised-button color="primary" (click)="agregarInvitado()">Agregar invitado</button>
+        <button mat-raised-button color="warn" (click)="agregarReserva()">Reservar Citas</button>
+        <br>
+        <mat-error *ngIf="validarInvitados()" class="invitados-error">El límite de personas invitadas ha sido excedido</mat-error>
+    </div>
+</form>
